@@ -1,0 +1,8 @@
+{
+    "mongo_exec.debug": false,
+    "mongo_exec.commands": {
+        "mongo"  : "mongo"
+    },
+    "connections": {
+    }
+}

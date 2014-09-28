@@ -1,0 +1,30 @@
+[
+  {
+    "caption": "MongoExec: List connections",
+    "command": "mongo_list_connection"
+  },
+  {
+    "caption": "MongoExec: List collections",
+    "command": "mongo_list_collection"
+  },
+  {
+    "caption": "MongoExec: Execute",
+    "command": "mongo_execute"
+  },
+  {
+    "caption": "MongoExec: History",
+    "command": "mongo_history"
+  },
+  {
+    "caption": "MongoExec: Type Query",
+    "command": "mongo_query"
+  },
+  {
+    "caption": "MongoExec: Show Table Records",
+    "command": "mongo_show_records"
+  },
+  {
+    "caption": "MongoExec: Desc Table",
+    "command": "mongo_desc"
+  }
+]
