@@ -15,6 +15,8 @@ class Connection:
         global collection
         if 'find' in query:
             query = query + ".toArray()"
+
+        query = query.replace('"', '\\"')
         return self.command + ' ' + collection + " --eval \"printjson(%s)\"" % query
 
     def _getCommand(self, queryN):
@@ -27,10 +29,34 @@ class Connection:
 
         return Command(cmd)
 
+    def list(self):
+        command = self._buildCommand('db.getMongo().getDBNames()')
+        dbs = Command(command).list()
+        return dbs
+
     def execute(self, query):
         command = self._getCommand(query)
         command.show()
         os.unlink(self.tmp.name)
+
+    def desc(self):
+        command = self._getCommand('db.getMongo().getDBNames()')
+        tables = []
+        for result in command.run().splitlines():
+            try:
+                if '[' in result:
+                    result = result.replace('[', '')
+                    result = result.replace(']', '')
+                    result = result.replace('"', '')
+                    for res in result.split(','):
+                        tables.append(res.strip())
+            except IndexError:
+                pass
+
+        os.unlink(self.tmp.name)
+        print(tables)
+
+        return tables
 
 class Command:
     def __init__(self, text):
@@ -44,7 +70,7 @@ class Command:
             panel = sublime.active_window().new_file()
 
         panel.set_read_only(False)
-        panel.set_syntax_file('Packages/JavaScript/JSON.tmLanguage')
+        panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
         panel.run_command('append', {'characters': text})
         panel.set_read_only(True)
 
@@ -68,6 +94,11 @@ class Command:
 
         if results:
             self._result(results)
+
+    def list(self):
+        results = self.run()
+
+        return results
 
 class Selection:
     def __init__(self, view):
@@ -110,13 +141,10 @@ class Options:
         return names
 
     def listDatabases():
-        names = []
-        connections = sublime.load_settings("MongoExec.sublime-settings").get('connections')
-        for dbName in connections[connectionName]['databases']:
-            names.append(dbName)
-        names.sort()
-        return names
-
+        global connection
+        dbs = connection.desc()
+        dbs.sort()
+        return dbs
 
 def mongoChangeConnection(index):
     global connection, connectionName
