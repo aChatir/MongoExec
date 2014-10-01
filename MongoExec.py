@@ -17,7 +17,7 @@ class Connection:
             query = query + ".toArray()"
 
         query = query.replace('"', '\\"')
-        return self.command + ' ' + collection + " --eval \"printjson(%s)\"" % query
+        return self.command + ' ' + self.options.host + ':' + self.options.port + '/' + collection + " --eval \"printjson(%s)\"" % query
 
     def _getCommand(self, queryN):
         command  = self._buildCommand(queryN)
@@ -26,8 +26,35 @@ class Connection:
         self.tmp.close()
 
         cmd = '%s < "%s"' % (command, self.tmp.name)
+        print(command)
 
         return Command(cmd)
+
+    def _filterOutput(self, command):
+        itemsList = []
+        for result in command.run().splitlines():
+            try:
+                if '[' in result and ']' in result:
+                    result = result.replace('[', '')
+                    result = result.replace(']', '')
+                    result = result.replace('"', '')
+                    for res in result.split(','):
+                        if "system.indexes" != res.strip():
+                            itemsList.append(res.strip())
+                else:
+                    if '"' in result:
+                        result = result.replace('"', '')
+                        result = result.replace(',', '')
+                        if "system.indexes" != result.strip():
+                            itemsList.append(result.strip())
+
+            except IndexError:
+                pass
+
+        os.unlink(self.tmp.name)
+        print(itemsList)
+
+        return itemsList
 
     def list(self):
         command = self._buildCommand('db.getMongo().getDBNames()')
@@ -41,22 +68,11 @@ class Connection:
 
     def desc(self):
         command = self._getCommand('db.getMongo().getDBNames()')
-        tables = []
-        for result in command.run().splitlines():
-            try:
-                if '[' in result:
-                    result = result.replace('[', '')
-                    result = result.replace(']', '')
-                    result = result.replace('"', '')
-                    for res in result.split(','):
-                        tables.append(res.strip())
-            except IndexError:
-                pass
+        return self._filterOutput(command)
 
-        os.unlink(self.tmp.name)
-        print(tables)
-
-        return tables
+    def descCollections(self):
+        command = self._getCommand('db.getCollectionNames()')
+        return self._filterOutput(command)
 
 class Command:
     def __init__(self, text):
@@ -70,7 +86,7 @@ class Command:
             panel = sublime.active_window().new_file()
 
         panel.set_read_only(False)
-        panel.set_syntax_file('Packages/JavaScript/JavaScript.tmLanguage')
+        panel.set_syntax_file('Packages/JavaScript/JSON.tmLanguage')
         panel.run_command('append', {'characters': text})
         panel.set_read_only(True)
 
@@ -146,15 +162,27 @@ class Options:
         dbs.sort()
         return dbs
 
+    def listCollections():
+        global connection
+        collectionList = connection.descCollections()
+        collectionList.sort()
+        return collectionList
+
 def mongoChangeConnection(index):
-    global connection, connectionName
+    global connection, connectionName, collection
     names = Options.list()
     options = Options(names[index])
     connectionName = names[index]
+    collection = names[index]
     connection = Connection(options)
     sublime.status_message(' MongoExec: switched to %s connection' % names[index])
-    sublime.active_window().run_command("mongo_list_collection", {})
+    sublime.active_window().run_command("mongo_list_dbs", {})
 
+def fetchCollection(index):
+    global connection
+    names = Options.listCollections()
+    query = sublime.load_settings("mongo.mongoexec").get('mongo_exec')['queries']['show records']['query']
+    connection.execute(query % names[index])
 
 def mongoChangeDB(index):
     global collection
@@ -201,7 +229,10 @@ class mongoListConnection(sublime_plugin.WindowCommand):
     def run(self):
         sublime.active_window().show_quick_panel(Options.list(), mongoChangeConnection)
 
-class mongoListCollection(sublime_plugin.WindowCommand):
+class mongoListDbs(sublime_plugin.WindowCommand):
     def run(self):
         sublime.set_timeout(lambda: sublime.active_window().show_quick_panel(Options.listDatabases(), mongoChangeDB), 10)
 
+class mongoListCollection(sublime_plugin.WindowCommand):
+    def run(self):
+        sublime.active_window().show_quick_panel(Options.listCollections(), fetchCollection)

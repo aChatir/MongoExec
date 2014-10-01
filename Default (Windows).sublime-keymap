@@ -1,5 +1,7 @@
 [
     { "keys": ["ctrl+alt+w"], "command": "mongo_list_connection" },
+    { "keys": ["ctrl+alt+d"], "command": "mongo_list_dbs" },
+    { "keys": ["ctrl+w", "ctrl+c"], "command": "mongo_list_collection" },
     { "keys": ["ctrl+w", "ctrl+w"], "command": "mongo_execute" },
     { "keys": ["ctrl+w", "ctrl+h"], "command": "mongo_history" },
     { "keys": ["ctrl+w", "ctrl+q"], "command": "mongo_query" },

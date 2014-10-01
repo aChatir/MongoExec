@@ -4,6 +4,10 @@
     "command": "mongo_list_connection"
   },
   {
+    "caption": "MongoExec: List databases",
+    "command": "mongo_list_dbs"
+  },
+  {
     "caption": "MongoExec: List collections",
     "command": "mongo_list_collection"
   },

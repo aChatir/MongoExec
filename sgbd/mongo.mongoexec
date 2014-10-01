@@ -5,11 +5,11 @@
         "args": "",
         "queries": {
             "desc" : {
-                "query": "use `%s`; show collections",
+                "query": "use %s; show collections",
                 "format" : "|%s|"
             },
             "show records": {
-                "query": "db.`%s`.find().limit(100)",
+                "query": "db.%s.find().limit(100)",
                 "format" : "|%s|"
             }
         }
