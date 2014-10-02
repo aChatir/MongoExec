@@ -7,27 +7,35 @@ A Plugin for running Mongo commands in Sublime Text.
 
 * Abdelaziz CHATIR
 
-## Installation and Configuration
+# Installation and Configuration
 
-#Package Control
+## Package Control
 
 The preferred method of installation is via Sublime Package Control.
 
-    Install Sublime Package Control
-    * From inside Sublime Text, open Package Control's Command Pallet: CTRL SHIFT P (Windows, Linux) or CMD SHIFT P on Mac.
-    * Type install package and hit Return. A list of available packages will be displayed.
-    * Type MongoExec and hit Return. The package will be downloaded to the appropriate directory.
-    * Restart Sublime Text to complete installation.
+Install Sublime Package Control
 
-#Manual Installation
+* From inside Sublime Text, open Package Control's Command Pallet: CTRL SHIFT P (Windows, Linux) or CMD SHIFT P on Mac.
 
-    Download or clone this repository to a directory MongoExec in the Sublime Text Packages directory for your platform:
-        * Mac: git clone git@github.com:kalo7791/MongoExec.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/MongoExec
-        * Windows: git clone git@github.com:kalo7791/MongoExec.git %APPDATA%\Sublime/ Text/ 3/\MongoExec
-        * Linux: git clone git@github.com:kalo7791/MongoExec.git ~/.Sublime\ Text\ 3/Packages/MongoExec
-    Restart Sublime Text to complete installation.
+* Type install package and hit Return. A list of available packages will be displayed.
 
-##Configuration
+* Type MongoExec and hit Return. The package will be downloaded to the appropriate directory.
+
+* Restart Sublime Text to complete installation.
+
+## Manual Installation
+
+Download or clone this repository to a directory MongoExec in the Sublime Text Packages directory for your platform:
+
+* Mac: git clone git@github.com:kalo7791/MongoExec.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/MongoExec
+
+* Windows: git clone git@github.com:kalo7791/MongoExec.git %APPDATA%\Sublime/ Text/ 3/\MongoExec
+
+* Linux: git clone git@github.com:kalo7791/MongoExec.git ~/.Sublime\ Text\ 3/Packages/MongoExec
+
+* Restart Sublime Text to complete installation.
+
+# Configuration
 ```json
     {
         "mongo_exec.commands": {
