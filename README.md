@@ -1,4 +1,5 @@
 MongoExec
+=========
 
 A Plugin for running Mongo commands in Sublime Text.
 
@@ -30,6 +31,12 @@ Download or clone this repository to a directory MongoExec in the Sublime Text P
 * Restart Sublime Text to complete installation.
 
 # Configuration
+
+Settings
+--------
+
+'Preferences' -> 'Package Settings' -> 'MongoExec'
+
 ```json
     {
         "mongo_exec.commands": {
@@ -47,5 +54,10 @@ Download or clone this repository to a directory MongoExec in the Sublime Text P
         }
     }
 ```
-[Inspired and Based on](http://lubriciousdevelopers.github.io/projects/sublime-sql-exec/)
+
+# Usage:
+
+![ruby_tests screenshot](https://github.com/kalo7791/MongoExec/raw/master/mongoexec.gif)
+
+Inspired and Based on [SQLExec](https://sublime.wbond.net/packages/SQLExec)
 
