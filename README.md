@@ -5,32 +5,35 @@ A Plugin for running Mongo commands in Sublime Text.
 
 
 ## Authors
+----------
 
 * Abdelaziz CHATIR
 
-# Installation and Configuration
+# Usage:
+--------
 
-## Package Control
+![mongoexec screenshot](https://github.com/kalo7791/MongoExec/raw/master/mongoexec.gif)
 
-The preferred method of installation is via Sublime Package Control.
+## How to Install
 
-Install Sublime Package Control
+### Package Control *(Recommended)*
 
-* From inside Sublime Text, open Package Control's Command Pallet: CTRL SHIFT P (Windows, Linux) or CMD SHIFT P on Mac.
-* Type install package and hit Return. A list of available packages will be displayed.
-* Type MongoExec and hit Return. The package will be downloaded to the appropriate directory.
-* Restart Sublime Text to complete installation.
+1. Package Control: **Install Package** `MongoExec`
+2. **Restart** Sublime Text
 
-## Manual Installation
+### Git
 
-Download or clone this repository to a directory MongoExec in the Sublime Text Packages directory for your platform:
+1. **Clone** to your packages folder `git clone git@github.com:kalo7791/MongoExec.git`
+2. **Restart** Sublime Text
 
-* Mac: git clone git@github.com:kalo7791/MongoExec.git ~/Library/Application\ Support/Sublime\ Text\ 3/Packages/MongoExec
-* Windows: git clone git@github.com:kalo7791/MongoExec.git %APPDATA%\Sublime/ Text/ 3/\MongoExec
-* Linux: git clone git@github.com:kalo7791/MongoExec.git ~/.Sublime\ Text\ 3/Packages/MongoExec
-* Restart Sublime Text to complete installation.
+### Download
+
+1. **Download** this **[ZIP file](https://github.com/kalo7791/MongoExec/archive/master.zip)**
+2. Move to packages folder *(In the **Sublime Text 3** menu → **Preferences** → **Browse Packages…**)*
+3. **Restart** Sublime Text
 
 # Configuration
+---------------
 
 Settings
 --------
@@ -38,26 +41,23 @@ Settings
 'Preferences' -> 'Package Settings' -> 'MongoExec'
 
 ```json
-    {
-        "mongo_exec.commands": {
-            "mongo" : "/usr/bin/mongo"
-        },
-        "connections": {
-            "Localhost": {
-                "type"    : "mongo",
-                "host"    : "localhost",
-                "port"    : "27017",
-                "username": "",
-                "password": "",
-                "databases": ""
-            }
+{
+    "mongo_exec.commands": {
+        "mongo" : "/usr/bin/mongo"
+    },
+    "connections": {
+        "Localhost": {
+            "type"    : "mongo",
+            "host"    : "localhost",
+            "port"    : "27017",
+            "username": "",
+            "password": "",
+            "databases": ""
         }
     }
+}
 ```
 
-# Usage:
-
-![ruby_tests screenshot](https://github.com/kalo7791/MongoExec/raw/master/mongoexec.gif)
 
 Inspired and Based on [SQLExec](https://sublime.wbond.net/packages/SQLExec)
 
