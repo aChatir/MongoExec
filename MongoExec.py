@@ -15,7 +15,6 @@ class Connection:
         global collection
         if 'find' in query:
             query = query + ".toArray()"
-
         query = query.replace('"', '\\"')
         return self.command + ' ' + self.options.host + ':' + self.options.port + '/' + collection + " --eval \"printjson(%s)\"" % query
 
@@ -236,3 +235,13 @@ class mongoListDbs(sublime_plugin.WindowCommand):
 class mongoListCollection(sublime_plugin.WindowCommand):
     def run(self):
         sublime.active_window().show_quick_panel(Options.listCollections(), fetchCollection)
+
+class mongoExecute(sublime_plugin.WindowCommand):
+    def run(self):
+        global connection
+        if connection != None:
+            selection = Selection(self.window.active_view())
+            for query in selection.getQueries():
+                connection.execute(query)
+        else:
+            sublime.error_message('No active connection')
