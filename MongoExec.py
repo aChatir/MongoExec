@@ -215,15 +215,6 @@ class mongoQuery(sublime_plugin.WindowCommand):
         else:
             sublime.error_message('No active connection')
 
-class mongoExecute(sublime_plugin.WindowCommand):
-    def run(self):
-        global connection
-        if connection != None:
-            selection = Selection(self.window.active_view())
-            connection.execute(selection.getQueries())
-        else:
-            sublime.error_message('No active connection')
-
 class mongoListConnection(sublime_plugin.WindowCommand):
     def run(self):
         sublime.active_window().show_quick_panel(Options.list(), mongoChangeConnection)
