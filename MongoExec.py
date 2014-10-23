@@ -16,6 +16,7 @@ class Connection:
         if 'find' in query:
             query = query + ".toArray()"
         query = query.replace('"', '\\"')
+        query = query.replace('$', '\\$')
         return self.command + ' ' + self.options.host + ':' + self.options.port + '/' + collection + " --eval \"printjson(%s)\"" % query
 
     def _getCommand(self, queryN):
