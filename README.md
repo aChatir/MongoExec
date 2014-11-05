@@ -12,7 +12,7 @@ A Plugin for running Mongo commands in Sublime Text.
 # Usage:
 --------
 
-![mongoexec screenshot](https://github.com/kalo7791/MongoExec/raw/master/mongoexec.gif)
+![mongoexec screenshot](https://github.com/aChatir/MongoExec/raw/master/mongoexec.gif)
 
 ## How to Install
 
@@ -23,12 +23,12 @@ A Plugin for running Mongo commands in Sublime Text.
 
 ### Git
 
-1. **Clone** to your packages folder `git clone git@github.com:kalo7791/MongoExec.git`
+1. **Clone** to your packages folder `git clone git@github.com:aChatir/MongoExec.git`
 2. **Restart** Sublime Text
 
 ### Download
 
-1. **Download** this **[ZIP file](https://github.com/kalo7791/MongoExec/archive/master.zip)**
+1. **Download** this **[ZIP file](https://github.com/aChatir/MongoExec/archive/master.zip)**
 2. Move to packages folder *(In the **Sublime Text 3** menu → **Preferences** → **Browse Packages…**)*
 3. **Restart** Sublime Text
 
