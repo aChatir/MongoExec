@@ -24,6 +24,10 @@
     "command": "mongo_query"
   },
   {
+    "caption": "MongoExec: Load File",
+    "command": "mongo_query_from_file"
+  },
+  {
     "caption": "MongoExec: Show Table Records",
     "command": "mongo_show_records"
   },

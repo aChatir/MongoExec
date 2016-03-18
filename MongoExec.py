@@ -11,18 +11,24 @@ class Connection:
         self.command  = sublime.load_settings("MongoExec.sublime-settings").get('mongo_exec.commands')[options.type]
         self.options  = options
 
-    def _buildCommand(self, query):
+    def _buildConnectionPath(self):
         global collection
+        return '"' + self.command + '" ' + self.options.host + ':' + self.options.port + '/' + collection
+
+    def _buildCommand(self, query):
         if 'find' in query:
             query = query + ".toArray()"
         query = query.replace('"', '\\"')
         query = query.replace('$', '\\$')
-        return '"' + self.command + '" ' + self.options.host + ':' + self.options.port + '/' + collection + " --eval \"printjson(%s)\"" % query
+        return self._buildConnectionPath() + " --eval \"printjson(%s)\"" % query
 
-    def _getCommand(self, queryN):
-        command  = self._buildCommand(queryN)
+    def _getCommand(self, query):
+        command  = self._buildCommand(query)
+        return self._execCommand(query, command)
+
+    def _execCommand(self, query, command):
         self.tmp = tempfile.NamedTemporaryFile(mode = 'w', delete = False, suffix='.mongo')
-        self.tmp.write(queryN + "\n")
+        self.tmp.write(query + "\n")
         self.tmp.close()
 
         cmd = '%s < "%s"' % (command, self.tmp.name)
@@ -63,6 +69,12 @@ class Connection:
 
     def execute(self, query):
         command = self._getCommand(query)
+        command.show()
+        os.unlink(self.tmp.name)
+
+    def loadFile(self, file_path):
+        connectionPath = self._buildConnectionPath() + ' ' + file_path
+        command = self._execCommand(file_path, connectionPath)
         command.show()
         os.unlink(self.tmp.name)
 
@@ -202,6 +214,14 @@ def executeQuery(query):
     if connection != None:
         connection.execute(query)
 
+def executeQueryFromFile(file_path):
+    global connection
+    if connection != None:
+        if os.path.isfile(file_path):
+            connection.loadFile(file_path)
+        else:
+            sublime.error_message('File does not exist')
+
 class mongoHistory(sublime_plugin.WindowCommand):
     global history
     def run(self):
@@ -213,6 +233,15 @@ class mongoQuery(sublime_plugin.WindowCommand):
         global history
         if connection != None:
             sublime.active_window().show_input_panel('Enter query', history[-1], executeQuery, None, None)
+        else:
+            sublime.error_message('No active connection')
+
+class mongoQueryFromFile(sublime_plugin.WindowCommand):
+    def run(self):
+        global connection
+        global history
+        if connection != None:
+            sublime.active_window().show_input_panel('Enter file path', history[-1], executeQueryFromFile, None, None)
         else:
             sublime.error_message('No active connection')
 
