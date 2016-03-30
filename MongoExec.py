@@ -222,6 +222,20 @@ def executeQueryFromFile(file_path):
         else:
             sublime.error_message('File does not exist')
 
+def excuteQueriesFromActiveView(this):
+    global connection
+    if connection != None:
+        tmpfile = tempfile.NamedTemporaryFile(delete=False, suffix='.js')
+        body = this.window.active_view().substr(sublime.Region(0, this.window.active_view().size()))
+        with open(tmpfile.name, 'a') as itemfile:
+            tmpfile.write(bytes(body, 'UTF-8'))
+        tmpfile.close();
+        if os.path.isfile(tmpfile.name):
+            connection.loadFile(tmpfile.name)
+            os.unlink(tmpfile.name)
+        else:
+            sublime.error_message('File does not exist')
+
 class mongoHistory(sublime_plugin.WindowCommand):
     global history
     def run(self):
@@ -266,3 +280,12 @@ class mongoExecute(sublime_plugin.WindowCommand):
                 connection.execute(query)
         else:
             sublime.error_message('No active connection')
+
+class mongoExecuteFromView(sublime_plugin.WindowCommand):
+    def run(self):
+        global connection
+        if connection != None:
+            excuteQueriesFromActiveView(self)
+        else:
+            sublime.error_message('No active connection')
+

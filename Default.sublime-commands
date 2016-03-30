@@ -28,6 +28,10 @@
     "command": "mongo_query_from_file"
   },
   {
+    "caption": "MongoExec: Load From Active View",
+    "command": "mongo_execute_from_view"
+  },
+  {
     "caption": "MongoExec: Show Table Records",
     "command": "mongo_show_records"
   },

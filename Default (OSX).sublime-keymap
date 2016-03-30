@@ -6,6 +6,7 @@
     { "keys": ["ctrl+w", "ctrl+h"], "command": "mongo_history" },
     { "keys": ["ctrl+w", "ctrl+q"], "command": "mongo_query" },
     { "keys": ["ctrl+w", "ctrl+f"], "command": "mongo_query_from_file" },
+    { "keys": ["ctrl+w", "ctrl+v"], "command": "mongo_execute_from_view" },
     { "keys": ["ctrl+w", "ctrl+s"], "command": "mongo_show_records" },
     { "keys": ["ctrl+w", "ctrl+d"], "command": "mongo_desc" },
 ]

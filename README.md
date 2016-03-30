@@ -14,6 +14,16 @@ A Plugin for running Mongo commands in Sublime Text.
 
 ![mongoexec screenshot](https://github.com/aChatir/MongoExec/raw/master/mongoexec.gif)
 
+# Commands Available:
+---------------------
+1. [Ctrl+Alt+w]    => List all databases.
+2. [Ctrl+w Ctrl+c] => List all collections.
+3. [Ctrl+w Ctrl+w] => Execute a selected querie.
+4. [Ctrl+w Ctrl+h] => List Queries history.
+5. [Ctrl+w Ctrl+q] => Execute a specific query.
+6. [Ctrl+w Ctrl+f] => Execute a specific file (js).
+7. [Ctrl+w Ctrl+v] => Execute a specefic view (from sublime even if not saved).
+
 ## How to Install
 
 ### Package Control *(Recommended)*
