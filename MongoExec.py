@@ -73,7 +73,7 @@ class Connection:
         os.unlink(self.tmp.name)
 
     def loadFile(self, file_path):
-        connectionPath = self._buildConnectionPath() + ' ' + file_path
+        connectionPath = self._buildConnectionPath() + ' "' + file_path + '"'
         command = self._execCommand(file_path, connectionPath)
         command.show()
         os.unlink(self.tmp.name)
