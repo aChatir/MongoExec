@@ -1,0 +1,16 @@
+// for windows 7; write below in MongoExec > Settings - user ; 
+{
+    "mongo_exec.commands": {
+        "mongo" : "C:\\Program Files\\MongoDB\\Server\\3.0\\bin\\mongo.exe"
+    },
+    "connections": {
+        "Localhost": {
+            "type"    : "mongo",
+            "host"    : "localhost",
+            "port"    : "27017",
+            "username": "",
+            "password": "",
+            "databases": ""
+        }
+    }
+}
