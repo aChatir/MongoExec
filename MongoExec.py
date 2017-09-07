@@ -16,7 +16,7 @@ class Connection:
         return '"' + self.command + '" ' + self.options.host + ':' + self.options.port + '/' + collection
 
     def _buildCommand(self, query):
-        if 'find' in query:
+        if 'find()' in query:
             query = query + ".toArray()"
         query = query.replace('"', '\\"')
         query = query.replace('$', '\\$')
